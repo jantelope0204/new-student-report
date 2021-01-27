@@ -145,7 +145,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/images/img_back.jpg");
+  background-image: url("../assets/images/backEdu.jpg");
   background-size: cover;
 }
 .title {

@@ -12,7 +12,7 @@
             </div>
             <ul class="list-group list-group-striped">
               <li class="list-group-item">
-                <svg-icon icon-class="user" />用户名称
+                <svg-icon icon-class="user" />学生名称
                 <div class="pull-right">{{ user.userName }}</div>
               </li>
               <li class="list-group-item">
@@ -20,11 +20,11 @@
                 <div class="pull-right">{{ user.phonenumber }}</div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="email" />用户邮箱
+                <svg-icon icon-class="email" />学生邮箱
                 <div class="pull-right">{{ user.email }}</div>
               </li>
               <li class="list-group-item">
-                <svg-icon icon-class="tree" />所属部门
+                <svg-icon icon-class="tree" />所属学院/班级
                 <div class="pull-right" v-if="user.dept">{{ user.dept.deptName }} / {{ postGroup }}</div>
               </li>
               <li class="list-group-item">

@@ -1,12 +1,12 @@
 <template>
   <div class="app-container">
     <el-row :gutter="20">
-      <!--部门数据-->
+      <!--学院数据-->
       <el-col :span="4" :xs="24">
         <div class="head-container">
           <el-input
             v-model="deptName"
-            placeholder="请输入部门名称"
+            placeholder="请输入班级名称"
             clearable
             size="small"
             prefix-icon="el-icon-search"
@@ -25,13 +25,13 @@
           />
         </div>
       </el-col>
-      <!--用户数据-->
+      <!--学生数据-->
       <el-col :span="20" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
-          <el-form-item label="用户名称" prop="userName">
+          <el-form-item label="学生学号" prop="userName">
             <el-input
               v-model="queryParams.userName"
-              placeholder="请输入用户名称"
+              placeholder="请输入学生学号"
               clearable
               size="small"
               style="width: 240px"
@@ -51,7 +51,7 @@
           <el-form-item label="状态" prop="status">
             <el-select
               v-model="queryParams.status"
-              placeholder="用户状态"
+              placeholder="学生状态"
               clearable
               size="small"
               style="width: 240px"
@@ -140,55 +140,25 @@
 
         <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
           <el-table-column type="selection" width="50" align="center" />
-          <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-          <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="学生编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
+          <el-table-column label="学生学号" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="学生姓名" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="学院" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
           <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
           <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
             <template slot-scope="scope">
-              <el-switch
-                v-model="scope.row.status"
-                active-value="0"
-                inactive-value="1"
-                @change="handleStatusChange(scope.row)"
-              ></el-switch>
+<!--              <el-switch-->
+<!--                v-model="scope.row.status"-->
+<!--                active-value="0"-->
+<!--                inactive-value="1"-->
+<!--                @change="handleStatusChange(scope.row)"-->
+<!--              ></el-switch>-->
+              <span>{{scope.row.status == 0?'已报到':'未报到'}}</span>
             </template>
           </el-table-column>
           <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
             <template slot-scope="scope">
               <span>{{ parseTime(scope.row.createTime) }}</span>
-            </template>
-          </el-table-column>
-          <el-table-column
-            label="操作"
-            align="center"
-            width="160"
-            class-name="small-padding fixed-width"
-          >
-            <template slot-scope="scope">
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-edit"
-                @click="handleUpdate(scope.row)"
-                v-hasPermi="['system:user:edit']"
-              >修改</el-button>
-              <el-button
-                v-if="scope.row.userId !== 1"
-                size="mini"
-                type="text"
-                icon="el-icon-delete"
-                @click="handleDelete(scope.row)"
-                v-hasPermi="['system:user:remove']"
-              >删除</el-button>
-              <el-button
-                size="mini"
-                type="text"
-                icon="el-icon-key"
-                @click="handleResetPwd(scope.row)"
-                v-hasPermi="['system:user:resetPwd']"
-              >重置</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -208,13 +178,13 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="用户昵称" prop="nickName">
-              <el-input v-model="form.nickName" placeholder="请输入用户昵称" />
+            <el-form-item label="学生姓名" prop="nickName">
+              <el-input v-model="form.nickName" placeholder="请输入学生姓名" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="归属部门" prop="deptId">
-              <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true" placeholder="请选择归属部门" />
+            <el-form-item label="归属学院" prop="deptId">
+              <treeselect v-model="form.deptId" :options="deptOptions" :show-count="true" placeholder="请选择归属学院" />
             </el-form-item>
           </el-col>
         </el-row>
@@ -232,19 +202,19 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="用户名称" prop="userName">
-              <el-input v-model="form.userName" placeholder="请输入用户名称" />
+            <el-form-item v-if="form.userId == undefined" label="学生学号" prop="userName">
+              <el-input v-model="form.userName" placeholder="请输入学生学号" />
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="用户密码" prop="password">
-              <el-input v-model="form.password" placeholder="请输入用户密码" type="password" />
+            <el-form-item v-if="form.userId == undefined" label="学生密码" prop="password">
+              <el-input v-model="form.password" placeholder="请输入学生密码" type="password" />
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="用户性别">
+            <el-form-item label="学生性别">
               <el-select v-model="form.sex" placeholder="请选择">
                 <el-option
                   v-for="dict in sexOptions"
@@ -269,7 +239,7 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="岗位">
+            <el-form-item label="班级">
               <el-select v-model="form.postIds" multiple placeholder="请选择">
                 <el-option
                   v-for="item in postOptions"
@@ -309,7 +279,7 @@
       </div>
     </el-dialog>
 
-    <!-- 用户导入对话框 -->
+    <!-- 学生导入对话框 -->
     <el-dialog :title="upload.title" :visible.sync="upload.open" width="400px" append-to-body>
       <el-upload
         ref="upload"
@@ -329,7 +299,7 @@
           <em>点击上传</em>
         </div>
         <div class="el-upload__tip" slot="tip">
-          <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的用户数据
+          <el-checkbox v-model="upload.updateSupport" />是否更新已经存在的学生数据
           <el-link type="info" style="font-size:12px" @click="importTemplate">下载模板</el-link>
         </div>
         <div class="el-upload__tip" style="color:red" slot="tip">提示：仅允许导入“xls”或“xlsx”格式文件！</div>
@@ -366,15 +336,15 @@ export default {
       showSearch: true,
       // 总条数
       total: 0,
-      // 用户表格数据
+      // 学生表格数据
       userList: null,
       // 弹出层标题
       title: "",
-      // 部门树选项
+      // 学院树选项
       deptOptions: undefined,
       // 是否显示弹出层
       open: false,
-      // 部门名称
+      // 学院名称
       deptName: undefined,
       // 默认密码
       initPassword: undefined,
@@ -394,15 +364,15 @@ export default {
         children: "children",
         label: "label"
       },
-      // 用户导入参数
+      // 学生导入参数
       upload: {
-        // 是否显示弹出层（用户导入）
+        // 是否显示弹出层（学生导入）
         open: false,
-        // 弹出层标题（用户导入）
+        // 弹出层标题（学生导入）
         title: "",
         // 是否禁用上传
         isUploading: false,
-        // 是否更新已经存在的用户数据
+        // 是否更新已经存在的学生数据
         updateSupport: 0,
         // 设置上传的请求头部
         headers: { Authorization: "Bearer " + getToken() },
@@ -420,10 +390,10 @@ export default {
       },
       // 列信息
       columns: [
-        { key: 0, label: `用户编号`, visible: true },
-        { key: 1, label: `用户名称`, visible: true },
-        { key: 2, label: `用户昵称`, visible: true },
-        { key: 3, label: `部门`, visible: true },
+        { key: 0, label: `学生编号`, visible: true },
+        { key: 1, label: `学生名称`, visible: true },
+        { key: 2, label: `学生姓名`, visible: true },
+        { key: 3, label: `学院`, visible: true },
         { key: 4, label: `手机号码`, visible: true },
         { key: 5, label: `状态`, visible: true },
         { key: 6, label: `创建时间`, visible: true }
@@ -431,13 +401,13 @@ export default {
       // 表单校验
       rules: {
         userName: [
-          { required: true, message: "用户名称不能为空", trigger: "blur" }
+          { required: true, message: "学生学号不能为空", trigger: "blur" }
         ],
         nickName: [
-          { required: true, message: "用户昵称不能为空", trigger: "blur" }
+          { required: true, message: "学生姓名不能为空", trigger: "blur" }
         ],
         password: [
-          { required: true, message: "用户密码不能为空", trigger: "blur" }
+          { required: true, message: "学生密码不能为空", trigger: "blur" }
         ],
         email: [
           {
@@ -457,7 +427,7 @@ export default {
     };
   },
   watch: {
-    // 根据名称筛选部门树
+    // 根据名称筛选学院树
     deptName(val) {
       this.$refs.tree.filter(val);
     }
@@ -476,7 +446,7 @@ export default {
     });
   },
   methods: {
-    /** 查询用户列表 */
+    /** 查询学生列表 */
     getList() {
       this.loading = true;
       listUser(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
@@ -486,7 +456,7 @@ export default {
         }
       );
     },
-    /** 查询部门下拉树结构 */
+    /** 查询学院下拉树结构 */
     getTreeselect() {
       treeselect().then(response => {
         this.deptOptions = response.data;
@@ -502,10 +472,10 @@ export default {
       this.queryParams.deptId = data.id;
       this.getList();
     },
-    // 用户状态修改
+    // 学生状态修改
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
-      this.$confirm('确认要"' + text + '""' + row.userName + '"用户吗?', "警告", {
+      this.$confirm('确认要"' + text + '""' + row.userName + '"学生吗?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
@@ -565,7 +535,7 @@ export default {
         this.postOptions = response.posts;
         this.roleOptions = response.roles;
         this.open = true;
-        this.title = "添加用户";
+        this.title = "添加学生";
         this.form.password = this.initPassword;
       });
     },
@@ -581,7 +551,7 @@ export default {
         this.form.postIds = response.postIds;
         this.form.roleIds = response.roleIds;
         this.open = true;
-        this.title = "修改用户";
+        this.title = "修改学生";
         this.form.password = "";
       });
     },
@@ -619,7 +589,7 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const userIds = row.userId || this.ids;
-      this.$confirm('是否确认删除用户编号为"' + userIds + '"的数据项?', "警告", {
+      this.$confirm('是否确认删除学生编号为"' + userIds + '"的数据项?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
@@ -633,7 +603,7 @@ export default {
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      this.$confirm('是否确认导出所有用户数据项?', "警告", {
+      this.$confirm('是否确认导出所有学生数据项?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"
@@ -645,7 +615,7 @@ export default {
     },
     /** 导入按钮操作 */
     handleImport() {
-      this.upload.title = "用户导入";
+      this.upload.title = "学生导入";
       this.upload.open = true;
     },
     /** 下载模板操作 */
