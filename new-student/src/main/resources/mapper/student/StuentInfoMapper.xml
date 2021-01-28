@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.student.mapper.StuentInfoMapper">
+    
+    <resultMap type="StuentInfo" id="StuentInfoResult">
+        <result property="stuId"    column="stu_id"    />
+        <result property="stuName"    column="stu_name"    />
+        <result property="stuSex"    column="stu_sex"    />
+        <result property="stuAge"    column="stu_age"    />
+        <result property="stuCode"    column="stu_code"    />
+        <result property="stuScore"    column="stu_score"    />
+        <result property="stuDept"    column="stu_dept"    />
+        <result property="stuMajor"    column="stu_major"    />
+        <result property="stuNative"    column="stu_native"    />
+        <result property="stuFolk"    column="stu_folk"    />
+        <result property="stuPoliticalStatus"    column="stu_political_status"    />
+        <result property="stuPhone"    column="stu_phone"    />
+        <result property="stuStatus"    column="stu_status"    />
+        <result property="stuQq"    column="stu_qq"    />
+    </resultMap>
+
+    <sql id="selectStuentInfoVo">
+        select stu_id, stu_name, stu_sex, stu_age, stu_code, stu_score, stu_dept, stu_major, stu_native, stu_folk, stu_political_status, stu_phone, stu_status, stu_qq from stuent_info
+    </sql>
+
+    <select id="selectStuentInfoList" parameterType="StuentInfo" resultMap="StuentInfoResult">
+        <include refid="selectStuentInfoVo"/>
+        <where>  
+            <if test="stuName != null  and stuName != ''"> and stu_name like concat('%', #{stuName}, '%')</if>
+            <if test="stuSex != null "> and stu_sex = #{stuSex}</if>
+            <if test="stuAge != null "> and stu_age = #{stuAge}</if>
+            <if test="stuCode != null "> and stu_code = #{stuCode}</if>
+            <if test="stuScore != null "> and stu_score = #{stuScore}</if>
+            <if test="stuDept != null  and stuDept != ''"> and stu_dept = #{stuDept}</if>
+            <if test="stuMajor != null  and stuMajor != ''"> and stu_major = #{stuMajor}</if>
+            <if test="stuNative != null  and stuNative != ''"> and stu_native = #{stuNative}</if>
+            <if test="stuFolk != null  and stuFolk != ''"> and stu_folk = #{stuFolk}</if>
+            <if test="stuPoliticalStatus != null  and stuPoliticalStatus != ''"> and stu_political_status = #{stuPoliticalStatus}</if>
+            <if test="stuPhone != null "> and stu_phone = #{stuPhone}</if>
+            <if test="stuStatus != null "> and stu_status = #{stuStatus}</if>
+            <if test="stuQq != null "> and stu_qq = #{stuQq}</if>
+        </where>
+    </select>
+    
+    <select id="selectStuentInfoById" parameterType="String" resultMap="StuentInfoResult">
+        <include refid="selectStuentInfoVo"/>
+        where stu_id = #{stuId}
+    </select>
+        
+    <insert id="insertStuentInfo" parameterType="StuentInfo">
+        insert into stuent_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="stuId != null">stu_id,</if>
+            <if test="stuName != null and stuName != ''">stu_name,</if>
+            <if test="stuSex != null">stu_sex,</if>
+            <if test="stuAge != null">stu_age,</if>
+            <if test="stuCode != null">stu_code,</if>
+            <if test="stuScore != null">stu_score,</if>
+            <if test="stuDept != null">stu_dept,</if>
+            <if test="stuMajor != null">stu_major,</if>
+            <if test="stuNative != null">stu_native,</if>
+            <if test="stuFolk != null">stu_folk,</if>
+            <if test="stuPoliticalStatus != null">stu_political_status,</if>
+            <if test="stuPhone != null">stu_phone,</if>
+            <if test="stuStatus != null">stu_status,</if>
+            <if test="stuQq != null">stu_qq,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="stuId != null">#{stuId},</if>
+            <if test="stuName != null and stuName != ''">#{stuName},</if>
+            <if test="stuSex != null">#{stuSex},</if>
+            <if test="stuAge != null">#{stuAge},</if>
+            <if test="stuCode != null">#{stuCode},</if>
+            <if test="stuScore != null">#{stuScore},</if>
+            <if test="stuDept != null">#{stuDept},</if>
+            <if test="stuMajor != null">#{stuMajor},</if>
+            <if test="stuNative != null">#{stuNative},</if>
+            <if test="stuFolk != null">#{stuFolk},</if>
+            <if test="stuPoliticalStatus != null">#{stuPoliticalStatus},</if>
+            <if test="stuPhone != null">#{stuPhone},</if>
+            <if test="stuStatus != null">#{stuStatus},</if>
+            <if test="stuQq != null">#{stuQq},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStuentInfo" parameterType="StuentInfo">
+        update stuent_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="stuName != null and stuName != ''">stu_name = #{stuName},</if>
+            <if test="stuSex != null">stu_sex = #{stuSex},</if>
+            <if test="stuAge != null">stu_age = #{stuAge},</if>
+            <if test="stuCode != null">stu_code = #{stuCode},</if>
+            <if test="stuScore != null">stu_score = #{stuScore},</if>
+            <if test="stuDept != null">stu_dept = #{stuDept},</if>
+            <if test="stuMajor != null">stu_major = #{stuMajor},</if>
+            <if test="stuNative != null">stu_native = #{stuNative},</if>
+            <if test="stuFolk != null">stu_folk = #{stuFolk},</if>
+            <if test="stuPoliticalStatus != null">stu_political_status = #{stuPoliticalStatus},</if>
+            <if test="stuPhone != null">stu_phone = #{stuPhone},</if>
+            <if test="stuStatus != null">stu_status = #{stuStatus},</if>
+            <if test="stuQq != null">stu_qq = #{stuQq},</if>
+        </trim>
+        where stu_id = #{stuId}
+    </update>
+
+    <delete id="deleteStuentInfoById" parameterType="String">
+        delete from stuent_info where stu_id = #{stuId}
+    </delete>
+
+    <delete id="deleteStuentInfoByIds" parameterType="String">
+        delete from stuent_info where stu_id in 
+        <foreach item="stuId" collection="array" open="(" separator="," close=")">
+            #{stuId}
+        </foreach>
+    </delete>
+</mapper>

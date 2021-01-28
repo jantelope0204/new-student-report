@@ -6,7 +6,7 @@
         <div class="head-container">
           <el-input
             v-model="deptName"
-            placeholder="请输入班级名称"
+            placeholder="请输入专业名称"
             clearable
             size="small"
             prefix-icon="el-icon-search"
@@ -239,8 +239,8 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="班级">
-              <el-select v-model="form.postIds" multiple placeholder="请选择">
+            <el-form-item label="专业">
+              <el-select v-model="form.postIds"  placeholder="请选择">
                 <el-option
                   v-for="item in postOptions"
                   :key="item.postId"
@@ -253,7 +253,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="角色">
-              <el-select v-model="form.roleIds" multiple placeholder="请选择">
+              <el-select v-model="form.roleIds"  placeholder="请选择">
                 <el-option
                   v-for="item in roleOptions"
                   :key="item.roleId"
