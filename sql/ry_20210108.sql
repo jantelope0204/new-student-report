@@ -683,3 +683,25 @@ create table gen_table_column (
   update_time       datetime                                   comment '更新时间',
   primary key (column_id)
 ) engine=innodb auto_increment=1 comment = '代码生成业务表字段';
+
+
+--学生表
+drop table if exists stuent_info;
+CREATE TABLE stuent_info (
+                               `stu_id` varchar(32) NOT NULL COMMENT '学号',
+                               `stu_name` varchar(32) NOT NULL COMMENT '学生姓名',
+                               `stu_sex` int(1) NOT NULL COMMENT '1男性0女性',
+                               `stu_age` int(2) NOT NULL COMMENT '年龄',
+                               `stu_code` varchar(32) NOT NULL COMMENT '身份证',
+                               `stu_score` int(3) DEFAULT NULL COMMENT '高考成绩',
+                               `stu_dept` varchar(20) DEFAULT NULL COMMENT '学院ID',
+                               `stu_major` varchar(20) DEFAULT NULL COMMENT '专业代码',
+                               `stu_native` varchar(20) DEFAULT NULL COMMENT '籍贯',
+                               `stu_folk` varchar(10) DEFAULT NULL COMMENT '民族',
+                               `stu_political_status` varchar(10) DEFAULT NULL COMMENT '政治面貌',
+                               `stu_phone` bigint(20) DEFAULT NULL COMMENT '联系电话',
+                               `stu_status` int(2) DEFAULT NULL COMMENT '报到状态0未报到1报到',
+                               `stu_qq` bigint(18) DEFAULT NULL COMMENT 'QQ号',
+                               `stu_email` varchar(64) DEFAULT NULL COMMENT '邮箱',
+                               PRIMARY KEY (`stu_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
