@@ -11,6 +11,8 @@ import java.util.Random;
  */
 public class CreateStudent {
     public static final Integer [] DEPT = {103,104,105,106,107,200};
+    public static String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+    public static final String[] email_suffix="@gmail.com,@yahoo.com,@msn.com,@hotmail.com,@aol.com,@ask.com,@live.com,@qq.com,@0355.net,@163.com,@163.net,@263.net,@3721.net,@yeah.net,@googlemail.com,@126.com,@sina.com,@sohu.com,@yahoo.com.cn".split(",");
     public static final Integer [] SEXArr = {0,1};
     public static final String NATIVE = "中国";
     public static final Integer number = 0;
@@ -70,6 +72,7 @@ public class CreateStudent {
         stuentInfo.setStuFolk(CreateStudent.getNation());
         //QQ 号
         stuentInfo.setStuQq(Long.valueOf(CreateStudent.getQq()));
+        stuentInfo.setStuEmail(CreateStudent.getEmail(6,13));
         return stuentInfo;
     }
     /**
@@ -177,26 +180,26 @@ public class CreateStudent {
     }
     //获取专业
     public static String getMajor(Integer dept) {
-        //103 土木工程:DLQLGC
-         //105 机械工程:JXDZ
-         //104 信息工程 : JAVAKF  JSKX
-         //106 艺术:YSSJ
-         //107 电气:DQGC
-         //200 交通:JTGC
+        //103 土木工程:DLQLGC 7
+         //105 机械工程:JXDZ 4
+         //104 信息工程 : JAVAKF 2 JSKX 1
+         //106 艺术:YSSJ 6
+         //107 电气:DQGC 5
+         //200 交通:JTGC 3
         switch (dept) {
             case 103:
-                return "DLQLGC";
+                return "7";
             case 105:
-                return "JXDZ";
+                return "4";
             case 104:
-                String  [] arr = {"JAVAKF","JSKX"};
+                String  [] arr = {"2","1"};
                 return arr[new Random().nextInt(2)];
             case 106:
-                return "YSSJ";
+                return "6";
             case 107:
-                return "DQGC";
+                return "5";
             case 200:
-                return "JTGC";
+                return "3";
             default:
                 return null;
         }
@@ -208,5 +211,18 @@ public class CreateStudent {
     //获取民族
     public static String getNation() {
         return NATION[new Random().nextInt(NATION.length)];
+    }
+    public static String getEmail(int lMin,int lMax) {
+        int length=getNum(lMin,lMax);
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = (int)(Math.random()*base.length());
+            sb.append(base.charAt(number));
+        }
+        sb.append(email_suffix[(int)(Math.random()*email_suffix.length)]);
+        return sb.toString();
+    }
+    public static int getNum(int start,int end) {
+        return (int)(Math.random()*(end-start+1)+start);
     }
 }

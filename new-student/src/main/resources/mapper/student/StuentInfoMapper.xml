@@ -19,10 +19,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="stuPhone"    column="stu_phone"    />
         <result property="stuStatus"    column="stu_status"    />
         <result property="stuQq"    column="stu_qq"    />
+        <result property="stuEmail"    column="stu_email"    />
     </resultMap>
 
     <sql id="selectStuentInfoVo">
-        select stu_id, stu_name, stu_sex, stu_age, stu_code, stu_score, stu_dept, stu_major, stu_native, stu_folk, stu_political_status, stu_phone, stu_status, stu_qq from stuent_info
+        select stu_id, stu_name, stu_sex, stu_age, stu_code, stu_score, stu_dept, stu_major, stu_native, stu_folk, stu_political_status, stu_phone, stu_status, stu_qq,stu_email from stuent_info
     </sql>
 
     <select id="getCountNumber" resultType="int">
@@ -35,7 +36,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select count(*) from stuent_info where stu_status = 0
     </select>
     <select id="getDistinctColumn" resultType="string" parameterType="string">
-        select distinct ${column} from stuent_info
+        select distinct ${column} from stuent_info where stu_status = 1
     </select>
 
     <select id="selectStuentInfoList" parameterType="StuentInfo" resultMap="StuentInfoResult">
@@ -54,6 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuPhone != null "> and stu_phone = #{stuPhone}</if>
             <if test="stuStatus != null "> and stu_status = #{stuStatus}</if>
             <if test="stuQq != null "> and stu_qq = #{stuQq}</if>
+            <if test="stuEmail != null "> and stu_email = #{stuEmail}</if>
         </where>
     </select>
     
@@ -79,6 +81,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuPhone != null">stu_phone,</if>
             <if test="stuStatus != null">stu_status,</if>
             <if test="stuQq != null">stu_qq,</if>
+            <if test="stuEmail != null">stu_email,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="stuId != null">#{stuId},</if>
@@ -95,6 +98,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuPhone != null">#{stuPhone},</if>
             <if test="stuStatus != null">#{stuStatus},</if>
             <if test="stuQq != null">#{stuQq},</if>
+            <if test="stuEmail != null">#{stuEmail},</if>
          </trim>
     </insert>
 
@@ -114,6 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuPhone != null">stu_phone = #{stuPhone},</if>
             <if test="stuStatus != null">stu_status = #{stuStatus},</if>
             <if test="stuQq != null">stu_qq = #{stuQq},</if>
+            <if test="stuEmail != null">stu_email = #{stuEmail},</if>
         </trim>
         where stu_id = #{stuId}
     </update>

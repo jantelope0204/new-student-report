@@ -2,6 +2,8 @@ package com.ruoyi.web.controller.system;
 
 import java.util.List;
 import java.util.stream.Collectors;
+
+import com.ruoyi.student.service.IStuentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -52,6 +54,7 @@ public class SysUserController extends BaseController
 
     @Autowired
     private TokenService tokenService;
+
 
     /**
      * 获取用户列表

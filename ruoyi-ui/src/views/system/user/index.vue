@@ -202,13 +202,20 @@
         </el-row>
         <el-row>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="学生学号" prop="userName">
-              <el-input v-model="form.userName" placeholder="请输入学生学号" />
+            <el-form-item  label="学号" prop="userName">
+              <el-select v-model="form.userName" filterable placeholder="请选择" @change="getStudentInfo">
+                <el-option
+                  v-for="(item,index) in userIdList"
+                  :key="index"
+                  :label="item"
+                  :value="item">
+                </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item v-if="form.userId == undefined" label="学生密码" prop="password">
-              <el-input v-model="form.password" placeholder="请输入学生密码" type="password" />
+            <el-form-item label="学生密码" prop="password">
+              <el-input v-model="form.password" placeholder="" type="password" autocomplete="new-password" readonly onfocus="this.removeAttribute('readonly');this.type='password'"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -318,6 +325,7 @@ import { getToken } from "@/utils/auth";
 import { treeselect } from "@/api/system/dept";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
+import {getAllStudentIds,getInfo} from "@/api/student/info"
 
 export default {
   name: "User",
@@ -330,6 +338,7 @@ export default {
       ids: [],
       // 非单个禁用
       single: true,
+      userIdList:[],
       // 非多个禁用
       multiple: true,
       // 显示搜索条件
@@ -359,7 +368,20 @@ export default {
       // 角色选项
       roleOptions: [],
       // 表单参数
-      form: {},
+      form: {
+        userId: '',
+        deptId: '',
+        userName: '',
+        nickName: '',
+        password: '',
+        phonenumber: '',
+        email: '',
+        sex: '',
+        status: "0",
+        remark: '',
+        postIds: [],
+        roleIds: []
+      },
       defaultProps: {
         children: "children",
         label: "label"
@@ -435,6 +457,7 @@ export default {
   created() {
     this.getList();
     this.getTreeselect();
+    this.getStudentsList()
     this.getDicts("sys_normal_disable").then(response => {
       this.statusOptions = response.data;
     });
@@ -455,6 +478,15 @@ export default {
           this.loading = false;
         }
       );
+    },
+    getStudentsList(){
+      let p = {
+        column:'stu_id'
+      }
+      getAllStudentIds(p).then(res=>{
+        this.userIdList = res.data
+      })
+
     },
     /** 查询学院下拉树结构 */
     getTreeselect() {
@@ -552,7 +584,6 @@ export default {
         this.form.roleIds = response.roleIds;
         this.open = true;
         this.title = "修改学生";
-        this.form.password = "";
       });
     },
     /** 重置密码按钮操作 */
@@ -577,15 +608,32 @@ export default {
               this.getList();
             });
           } else {
+            this.open = false;
+            let arr1 = [this.form.postIds];
+            let arr2 = [this.form.roleIds];
+            this.form.postIds = arr1;
+            this.form.roleIds = arr2;
             addUser(this.form).then(response => {
               this.msgSuccess("新增成功");
-              this.open = false;
               this.getList();
             });
           }
         }
       });
     },
+
+    getStudentInfo(data){
+      getInfo(data).then(res=>{
+        this.form.nickName = res.data.stuName;
+        this.form.deptId = res.data.stuDept;
+        this.form.phonenumber = res.data.stuPhone;
+        this.form.sex = res.data.stuSex+'';
+        this.form.postIds = parseInt(res.data.stuMajor);
+        this.form.roleIds = 2;
+        this.form.email = res.data.stuEmail
+      })
+    },
+
     /** 删除按钮操作 */
     handleDelete(row) {
       const userIds = row.userId || this.ids;

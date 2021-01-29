@@ -70,7 +70,20 @@ public class StuentInfo extends BaseEntity
     @Excel(name = "QQ号")
     private Long stuQq;
 
-    public void setStuId(String stuId) 
+
+
+    @Excel(name = "邮箱")
+    private String stuEmail;
+    public String getStuEmail() {
+        return stuEmail;
+    }
+
+    public void setStuEmail(String stuEmail) {
+        this.stuEmail = stuEmail;
+    }
+
+
+    public void setStuId(String stuId)
     {
         this.stuId = stuId;
     }
@@ -197,23 +210,4 @@ public class StuentInfo extends BaseEntity
         return stuQq;
     }
 
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("stuId", getStuId())
-            .append("stuName", getStuName())
-            .append("stuSex", getStuSex())
-            .append("stuAge", getStuAge())
-            .append("stuCode", getStuCode())
-            .append("stuScore", getStuScore())
-            .append("stuDept", getStuDept())
-            .append("stuMajor", getStuMajor())
-            .append("stuNative", getStuNative())
-            .append("stuFolk", getStuFolk())
-            .append("stuPoliticalStatus", getStuPoliticalStatus())
-            .append("stuPhone", getStuPhone())
-            .append("stuStatus", getStuStatus())
-            .append("stuQq", getStuQq())
-            .toString();
-    }
 }

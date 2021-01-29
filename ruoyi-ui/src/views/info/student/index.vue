@@ -99,6 +99,7 @@
       <el-table-column label="政治面貌" align="center" prop="stuPoliticalStatus" />
       <el-table-column label="联系电话" align="center" prop="stuPhone" min-width="130px"/>
       <el-table-column label="QQ号" align="center" prop="stuQq" min-width="130px" />
+      <el-table-column label="邮箱" align="center" prop="stuEmail" min-width="240px" />
       <el-table-column label="报到状态" fixed="right" align="center" prop="stuStatus" >
         <template slot-scope="scope">
           <span>{{scope.row.stuStatus == 1?'报到':'未报到'}}</span>

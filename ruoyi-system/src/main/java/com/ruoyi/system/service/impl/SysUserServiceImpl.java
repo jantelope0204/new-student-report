@@ -2,6 +2,10 @@ package com.ruoyi.system.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.ruoyi.student.domain.StuentInfo;
+import com.ruoyi.student.mapper.StuentInfoMapper;
+import com.ruoyi.student.service.IStuentInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +56,8 @@ public class SysUserServiceImpl implements ISysUserService
 
     @Autowired
     private ISysConfigService configService;
+    @Autowired
+    private StuentInfoMapper stuentInfoMapper;
 
     /**
      * 根据条件分页查询用户列表
@@ -212,6 +218,10 @@ public class SysUserServiceImpl implements ISysUserService
     public int insertUser(SysUser user)
     {
         // 新增用户信息
+        StuentInfo stuentInfo = new StuentInfo();
+        stuentInfo.setStuId(user.getUserName());
+        stuentInfo.setStuStatus(1);
+        stuentInfoMapper.updateStuentInfo(stuentInfo);
         int rows = userMapper.insertUser(user);
         // 新增用户岗位关联
         insertUserPost(user);
