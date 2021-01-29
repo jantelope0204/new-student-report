@@ -59,4 +59,8 @@ public interface StuentInfoMapper
      * @return 结果
      */
     public int deleteStuentInfoByIds(String[] stuIds);
+    public int getCountNumber();
+    public int getSuccessNumber();
+    public int getFailNumber();
+    public List<String> getDistinctColumn(String column);
 }

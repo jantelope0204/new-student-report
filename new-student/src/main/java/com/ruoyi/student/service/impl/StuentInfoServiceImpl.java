@@ -106,6 +106,27 @@ public class StuentInfoServiceImpl implements IStuentInfoService
     {
         return stuentInfoMapper.deleteStuentInfoById(stuId);
     }
+
+    @Override
+    public int getCountNumber() {
+        return stuentInfoMapper.getCountNumber();
+    }
+
+    @Override
+    public int getSuccessNumber() {
+        return stuentInfoMapper.getSuccessNumber();
+    }
+
+    @Override
+    public int getFailNumber() {
+        return stuentInfoMapper.getFailNumber();
+    }
+
+    @Override
+    public List<String> getDistinctColumn(String column) {
+        return stuentInfoMapper.getDistinctColumn(column);
+    }
+
     public String getNextSerialNo(String date,String key) {
         if(date == null || "".equals(date)) {
             date = DateUtils.dateTime();

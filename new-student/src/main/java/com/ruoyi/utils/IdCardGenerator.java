@@ -2,12 +2,10 @@ package com.ruoyi.utils;
 import java.util.*;
 
 /**
- * @author 陈小哥cw
  * @date 2020/12/22 9:01
  */
 public class IdCardGenerator {
     public static final Map<String, Integer> areaCode = new HashMap<String, Integer>();
-
     static {
         IdCardGenerator.areaCode.put("北京市", 110000);
         IdCardGenerator.areaCode.put("市辖区", 110100);
@@ -3525,7 +3523,6 @@ public class IdCardGenerator {
         IdCardGenerator.areaCode.put("香港特别行政区", 810000);
         IdCardGenerator.areaCode.put("澳门特别行政区", 820000);
     }
-
     /**
      * 生成方法
      *
@@ -3542,8 +3539,6 @@ public class IdCardGenerator {
         //身份证号
         return generater.toString()+"-"+randomBirthday().substring(0,4);
     }
-
-
 
     /**
      * 随机地区
@@ -3630,18 +3625,6 @@ public class IdCardGenerator {
             return "0" + code;
         } else {
             return "" + code;
-        }
-    }
-
-    public static void main(String[] args) {
-        for (int i = 0; i < 10; i++) {
-            System.out.print(IdCardGenerator.generate());
-            System.out.print("\t");
-            System.out.print(IdCardGenerator.generate());
-            System.out.print("\t");
-            System.out.print(IdCardGenerator.generate());
-            System.out.print("\t");
-            System.out.println(IdCardGenerator.generate());
         }
     }
 }

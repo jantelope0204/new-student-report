@@ -59,4 +59,10 @@ public interface IStuentInfoService
      * @return 结果
      */
     public int deleteStuentInfoById(String stuId);
+
+    public int getCountNumber();
+    public int getSuccessNumber();
+    public int getFailNumber();
+    public List<String> getDistinctColumn(String column);
+
 }

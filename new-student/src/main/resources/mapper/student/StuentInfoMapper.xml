@@ -25,6 +25,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select stu_id, stu_name, stu_sex, stu_age, stu_code, stu_score, stu_dept, stu_major, stu_native, stu_folk, stu_political_status, stu_phone, stu_status, stu_qq from stuent_info
     </sql>
 
+    <select id="getCountNumber" resultType="int">
+        select count(*) from stuent_info
+    </select>
+    <select id="getSuccessNumber" resultType="int">
+        select count(*) from stuent_info where stu_status = 1
+    </select>
+    <select id="getFailNumber" resultType="int">
+        select count(*) from stuent_info where stu_status = 0
+    </select>
+    <select id="getDistinctColumn" resultType="string" parameterType="string">
+        select distinct ${column} from stuent_info
+    </select>
+
     <select id="selectStuentInfoList" parameterType="StuentInfo" resultMap="StuentInfoResult">
         <include refid="selectStuentInfoVo"/>
         <where>  

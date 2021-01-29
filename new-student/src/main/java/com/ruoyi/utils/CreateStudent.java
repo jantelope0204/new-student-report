@@ -38,16 +38,6 @@ public class CreateStudent {
             "133", "149", "153", "173", "177", "180", "181", "189", "199"
     };
 
-    /**
-     * 生成手机号
-     *
-     * @param op 0 移动 1 联通 2 电信
-     */
-
-    /**
-     * @description 随机生成学生数据，由这些数据创建学生对象并返回。
-     * @return 生成的学生对象
-     */
     public static StuentInfo getStudent() {
         StuentInfo stuentInfo = new StuentInfo();
         //身份证
@@ -82,6 +72,16 @@ public class CreateStudent {
         stuentInfo.setStuQq(Long.valueOf(CreateStudent.getQq()));
         return stuentInfo;
     }
+    /**
+     * 生成手机号
+     *
+     * @param op 0 移动 1 联通 2 电信
+     */
+
+    /**
+     * @description 随机生成学生数据，由这些数据创建学生对象并返回。
+     * @return 生成的学生对象
+     */
 
     public static String createMobile(int op) {
         StringBuilder sb = new StringBuilder();
@@ -148,7 +148,7 @@ public class CreateStudent {
      */
     public static String getQq() {
         char[] numArray = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
-        int qqLen = (int) (7 * Math.random()) + 5; // qq号长度可能为5~11位
+        int qqLen = new Random().nextInt(7) + 6; // qq号长度可能为5~11位
         StringBuilder qq = new StringBuilder();
         for (int i = 0; i < qqLen; i++) {
             int qqPos = (int) (10 * Math.random());

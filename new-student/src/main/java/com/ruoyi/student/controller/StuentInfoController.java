@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -94,4 +96,19 @@ public class StuentInfoController extends BaseController
     {
         return toAjax(stuentInfoService.deleteStuentInfoByIds(stuIds));
     }
+
+    @GetMapping(value = "studentIds")
+    public AjaxResult getAllStudentIds(String column){
+        return AjaxResult.success(stuentInfoService.getDistinctColumn(column));
+    }
+    @GetMapping(value = "countNumber")
+    public AjaxResult getCountNumber(){
+        HashMap<String, Integer> map = new HashMap<>();
+        map.put("count",stuentInfoService.getCountNumber());
+        map.put("fail",stuentInfoService.getFailNumber());
+        map.put("success",stuentInfoService.getSuccessNumber());
+        return AjaxResult.success(map);
+    }
+
+
 }

@@ -51,3 +51,20 @@ export function exportInfo(query) {
     params: query
   })
 }
+
+// 学生id
+export function getAllStudentIds(query) {
+  return request({
+    url: '/student/info/studentIds',
+    method: 'get',
+    params: query
+  })
+}
+// 学生数量
+export function getCountNumber() {
+  return request({
+    url: '/student/info/countNumber',
+    method: 'get',
+  })
+}
+
