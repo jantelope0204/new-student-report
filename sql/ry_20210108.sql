@@ -704,4 +704,4 @@ CREATE TABLE stuent_info (
                                `stu_qq` bigint(18) DEFAULT NULL COMMENT 'QQ号',
                                `stu_email` varchar(64) DEFAULT NULL COMMENT '邮箱',
                                PRIMARY KEY (`stu_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment = '学生基本信息表';

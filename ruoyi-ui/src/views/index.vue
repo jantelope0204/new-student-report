@@ -84,7 +84,7 @@
         </el-row>
         <el-card shadow="hover" style="height:403px;">
           <div slot="header" class="clearfix">
-            <span>待办事项</span>
+            <span>系统公告</span>
             <el-button style="float: right; padding: 3px 0" type="text" @click="">添加</el-button>
           </div>
           <!--          table 数据列表-->
@@ -133,27 +133,23 @@ export default {
       realTime: '',
       todoList: [
         {
-          title: '今天要修复100个bug',
+          title: '迎新晚会举办事宜',
           status: false
         },
         {
-          title: '今天要修复100个bug',
+          title: '新生火车站接待安排',
           status: false
         },
         {
-          title: '今天要写100行代码加几个bug吧',
+          title: '新生校园接待事宜',
           status: false
         },
         {
-          title: '今天要修复100个bug',
-          status: false
-        },
-        {
-          title: '今天要修复100个bug',
+          title: '新生开学时间通知',
           status: true
         },
         {
-          title: '今天要写100行代码加几个bug吧',
+          title: '新生开学宿舍物资准备',
           status: true
         }
       ],
