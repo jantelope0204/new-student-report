@@ -202,9 +202,9 @@
     </dependencyManagement>
 
     <modules>
-        <module>ruoyi-admin</module>
+        <module>child-admin</module>
         <module>ruoyi-framework</module>
-        <module>ruoyi-system</module>
+        <module>student-system</module>
         <module>ruoyi-quartz</module>
         <module>ruoyi-generator</module>
         <module>ruoyi-common</module>

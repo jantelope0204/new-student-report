@@ -18,7 +18,7 @@ import com.ruoyi.system.service.ISysDictTypeService;
 /**
  * 字典 业务层处理
  * 
- * @author ruoyi
+ * @author liyanjie
  */
 @Service
 public class SysDictTypeServiceImpl implements ISysDictTypeService

@@ -21,7 +21,7 @@ import com.ruoyi.common.utils.uuid.IdUtils;
 /**
  * 验证码操作处理
  * 
- * @author ruoyi
+ * @author liyanjie
  */
 @RestController
 public class CaptchaController
