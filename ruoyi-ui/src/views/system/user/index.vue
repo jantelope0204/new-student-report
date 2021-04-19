@@ -580,8 +580,8 @@ export default {
         this.form = response.data;
         this.postOptions = response.posts;
         this.roleOptions = response.roles;
-        this.form.postIds = response.postIds[0];
-        this.form.roleIds = response.roleIds[0];
+        this.form.postIds = response.postIds;
+        this.form.roleIds = response.roleIds;
         this.open = true;
         this.title = "修改学生";
       });
@@ -602,10 +602,6 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.userId != undefined) {
-            let arr1 = [this.form.postIds];
-            let arr2 = [this.form.roleIds];
-            this.form.postIds = arr1;
-            this.form.roleIds = arr2;
             updateUser(this.form).then(response => {
               this.msgSuccess("修改成功");
               this.open = false;
