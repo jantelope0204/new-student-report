@@ -105,6 +105,13 @@
           <span>{{scope.row.stuStatus == 1?'报到':'未报到'}}</span>
         </template>
       </el-table-column>
+
+      <el-table-column label="宿舍状态" fixed="right" align="center" prop="roomId" >
+        <template slot-scope="scope">
+          <span>{{scope.row.roomId == null?'未分配':'已分配'}}</span>
+        </template>
+      </el-table-column>
+
     </el-table>
 
     <pagination

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.stuRoomInfo.mapper.StuRoomInfoMapper">
+    
+    <resultMap type="StuRoomInfo" id="StuRoomInfoResult">
+        <result property="id"    column="id"    />
+        <result property="roomId"    column="room_id"    />
+        <result property="roomName"    column="room_name"    />
+        <result property="stuId"    column="stu_id"    />
+        <result property="stuName"    column="stu_name"    />
+    </resultMap>
+
+    <sql id="selectStuRoomInfoVo">
+        select id, room_id, room_name, stu_id, stu_name from stu_room_info
+    </sql>
+
+    <select id="selectStuRoomInfoList" parameterType="StuRoomInfo" resultMap="StuRoomInfoResult">
+        <include refid="selectStuRoomInfoVo"/>
+        <where>  
+            <if test="roomId != null  and roomId != ''"> and room_id = #{roomId}</if>
+            <if test="roomName != null  and roomName != ''"> and room_name like concat('%', #{roomName}, '%')</if>
+            <if test="stuId != null  and stuId != ''"> and stu_id = #{stuId}</if>
+            <if test="stuName != null  and stuName != ''"> and stu_name like concat('%', #{stuName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectStuRoomInfoById" parameterType="String" resultMap="StuRoomInfoResult">
+        <include refid="selectStuRoomInfoVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertStuRoomInfo" parameterType="StuRoomInfo">
+        insert into stu_room_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">id,</if>
+            <if test="roomId != null and roomId != ''">room_id,</if>
+            <if test="roomName != null and roomName != ''">room_name,</if>
+            <if test="stuId != null and stuId != ''">stu_id,</if>
+            <if test="stuName != null and stuName != ''">stu_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">#{id},</if>
+            <if test="roomId != null and roomId != ''">#{roomId},</if>
+            <if test="roomName != null and roomName != ''">#{roomName},</if>
+            <if test="stuId != null and stuId != ''">#{stuId},</if>
+            <if test="stuName != null and stuName != ''">#{stuName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStuRoomInfo" parameterType="StuRoomInfo">
+        update stu_room_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="roomId != null and roomId != ''">room_id = #{roomId},</if>
+            <if test="roomName != null and roomName != ''">room_name = #{roomName},</if>
+            <if test="stuId != null and stuId != ''">stu_id = #{stuId},</if>
+            <if test="stuName != null and stuName != ''">stu_name = #{stuName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteStuRoomInfoById" parameterType="String">
+        delete from stu_room_info where id = #{id}
+    </delete>
+
+    <delete id="deleteStuRoomInfoByIds" parameterType="String">
+        delete from stu_room_info where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

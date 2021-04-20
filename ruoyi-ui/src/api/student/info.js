@@ -68,3 +68,11 @@ export function getCountNumber() {
   })
 }
 
+
+export function listInfoOfStudent(query) {
+  return request({
+    url: '/student/info/list',
+    method: 'get',
+    params: query
+  })
+}

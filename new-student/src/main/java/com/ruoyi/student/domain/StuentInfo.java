@@ -74,6 +74,18 @@ public class StuentInfo extends BaseEntity
 
     @Excel(name = "邮箱")
     private String stuEmail;
+
+
+    private String roomId;
+
+    public String getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(String roomId) {
+        this.roomId = roomId;
+    }
+
     public String getStuEmail() {
         return stuEmail;
     }

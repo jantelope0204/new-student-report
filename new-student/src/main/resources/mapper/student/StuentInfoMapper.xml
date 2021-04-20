@@ -20,10 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="stuStatus"    column="stu_status"    />
         <result property="stuQq"    column="stu_qq"    />
         <result property="stuEmail"    column="stu_email"    />
+        <result property="roomId"    column="room_id"    />
     </resultMap>
 
     <sql id="selectStuentInfoVo">
-        select stu_id, stu_name, stu_sex, stu_age, stu_code, stu_score, stu_dept, stu_major, stu_native, stu_folk, stu_political_status, stu_phone, stu_status, stu_qq,stu_email from stuent_info
+        select stu_id, stu_name, stu_sex, stu_age, stu_code, stu_score, stu_dept, stu_major, stu_native, stu_folk, stu_political_status, stu_phone, stu_status, stu_qq,stu_email,room_id from stuent_info
     </sql>
 
     <select id="getCountNumber" resultType="int">
@@ -56,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuStatus != null "> and stu_status = #{stuStatus}</if>
             <if test="stuQq != null "> and stu_qq = #{stuQq}</if>
             <if test="stuEmail != null "> and stu_email = #{stuEmail}</if>
+            <if test="roomId != null "> and room_id = #{roomId}</if>
         </where>
     </select>
     
@@ -82,6 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuStatus != null">stu_status,</if>
             <if test="stuQq != null">stu_qq,</if>
             <if test="stuEmail != null">stu_email,</if>
+            <if test="roomId != null">room_id,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="stuId != null">#{stuId},</if>
@@ -99,6 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuStatus != null">#{stuStatus},</if>
             <if test="stuQq != null">#{stuQq},</if>
             <if test="stuEmail != null">#{stuEmail},</if>
+            <if test="roomId != null">#{roomId},</if>
          </trim>
     </insert>
 
@@ -119,6 +123,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="stuStatus != null">stu_status = #{stuStatus},</if>
             <if test="stuQq != null">stu_qq = #{stuQq},</if>
             <if test="stuEmail != null">stu_email = #{stuEmail},</if>
+            <if test="roomId != null">room_id = #{roomId},</if>
         </trim>
         where stu_id = #{stuId}
     </update>

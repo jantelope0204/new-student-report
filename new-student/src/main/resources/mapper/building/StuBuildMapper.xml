@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.building.mapper.StuBuildMapper">
+    
+    <resultMap type="StuBuild" id="StuBuildResult">
+        <result property="buildId"    column="build_id"    />
+        <result property="location"    column="location"    />
+        <result property="buildName"    column="build_name"    />
+    </resultMap>
+
+    <sql id="selectStuBuildVo">
+        select build_id, location, build_name from stu_build
+    </sql>
+
+    <select id="selectStuBuildList" parameterType="StuBuild" resultMap="StuBuildResult">
+        <include refid="selectStuBuildVo"/>
+        <where>  
+            <if test="location != null  and location != ''"> and location = #{location}</if>
+            <if test="buildName != null  and buildName != ''"> and build_name like concat('%', #{buildName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectStuBuildById" parameterType="String" resultMap="StuBuildResult">
+        <include refid="selectStuBuildVo"/>
+        where build_id = #{buildId}
+    </select>
+        
+    <insert id="insertStuBuild" parameterType="StuBuild">
+        insert into stu_build
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="buildId != null">build_id,</if>
+            <if test="location != null">location,</if>
+            <if test="buildName != null">build_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="buildId != null">#{buildId},</if>
+            <if test="location != null">#{location},</if>
+            <if test="buildName != null">#{buildName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateStuBuild" parameterType="StuBuild">
+        update stu_build
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="location != null">location = #{location},</if>
+            <if test="buildName != null">build_name = #{buildName},</if>
+        </trim>
+        where build_id = #{buildId}
+    </update>
+
+    <delete id="deleteStuBuildById" parameterType="String">
+        delete from stu_build where build_id = #{buildId}
+    </delete>
+
+    <delete id="deleteStuBuildByIds" parameterType="String">
+        delete from stu_build where build_id in 
+        <foreach item="buildId" collection="array" open="(" separator="," close=")">
+            #{buildId}
+        </foreach>
+    </delete>
+</mapper>
