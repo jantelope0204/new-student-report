@@ -71,6 +71,13 @@ public class StuentInfoServiceImpl implements IStuentInfoService
         return 200;
     }
 
+    @Override
+    public int insertStuentInfoOne(StuentInfo stuentInfo) {
+        String stuId = getNextSerialNo(DateUtils.getDate(), stuentInfo.getStuDept());
+        stuentInfo.setStuId(stuId);
+        return stuentInfoMapper.insertStuentInfo(stuentInfo);
+    }
+
     /**
      * 修改studentInfo
      * 

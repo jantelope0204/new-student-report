@@ -53,9 +53,22 @@
           plain
           icon="el-icon-plus"
           size="mini"
+          @click="handleAddMonica"
+          v-hasPermi="['student:info:add']"
+        >批量新增(模拟)</el-button>
+
+
+
+
+        <el-button
+          type="primary"
+          plain
+          icon="el-icon-plus"
+          size="mini"
           @click="handleAdd"
           v-hasPermi="['student:info:add']"
         >新增</el-button>
+
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -68,6 +81,19 @@
           v-hasPermi="['student:info:remove']"
         >删除</el-button>
       </el-col>
+
+      <el-col :span="1.5">
+        <el-button
+          type="success"
+          plain
+          icon="el-icon-edit"
+          size="mini"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['student:info:edit']"
+        >修改</el-button>
+      </el-col>
+
       <el-col :span="1.5">
         <el-button
           type="warning"
@@ -121,12 +147,70 @@
       :limit.sync="queryParams.pageSize"
       @pagination="getList"
     />
+    <!-- 添加或修改studentInfo对话框 -->
+    <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="学生姓名" prop="stuName">
+          <el-input v-model="form.stuName" placeholder="请输入学生姓名" />
+        </el-form-item>
+        <el-form-item label="性别" prop="stuSex">
+          <el-select v-model="form.stuSex" placeholder="请选择性别">
+            <el-option label="男" value="1" />
+            <el-option label="女" value="0" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="年龄" prop="stuAge">
+          <el-input v-model="form.stuAge" placeholder="请输入年龄" />
+        </el-form-item>
+        <el-form-item label="身份证" prop="stuCode">
+          <el-input v-model="form.stuCode" placeholder="请输入身份证" />
+        </el-form-item>
+        <el-form-item label="高考成绩" prop="stuScore">
+          <el-input v-model="form.stuScore" placeholder="请输入高考成绩" />
+        </el-form-item>
+        <el-form-item label="学院编号" prop="stuDept">
+          <el-input v-model="form.stuDept" placeholder="请输入学院编号" />
+        </el-form-item>
+        <el-form-item label="专业代码" prop="stuMajor">
+          <el-input v-model="form.stuMajor" placeholder="请输入专业代码" />
+        </el-form-item>
+        <el-form-item label="籍贯" prop="stuNative">
+          <el-input v-model="form.stuNative" placeholder="请输入籍贯" />
+        </el-form-item>
+        <el-form-item label="民族" prop="stuFolk">
+          <el-input v-model="form.stuFolk" placeholder="请输入民族" />
+        </el-form-item>
+        <el-form-item label="政治面貌">
+          <el-select v-model="form.stuPoliticalStatus">
+            <el-option label="群众" value="群众">群众</el-option>
+            <el-option label="团员" value="团员">团员</el-option>
+            <el-option label="党员" value="党员">党员</el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="联系电话" prop="stuPhone">
+          <el-input v-model="form.stuPhone" placeholder="请输入联系电话" />
+        </el-form-item>
+        <el-form-item label="联系电话" prop="stuPhone">
+          <el-input v-model="form.stuPhone" placeholder="请输入联系电话" />
+        </el-form-item>
+        <el-form-item label="邮箱" prop="stuQq">
+          <el-input v-model="form.stuEmail" placeholder="请输入邮箱" />
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="submitForm">确 定</el-button>
+        <el-button @click="cancel">取 消</el-button>
+      </div>
+    </el-dialog>
 
   </div>
+
+
+
 </template>
 
 <script>
-import { listInfo, getInfo, delInfo, addInfo, updateInfo, exportInfo } from "@/api/student/info";
+import { listInfo, getInfo, delInfo, addInfo, updateInfo, exportInfo,addInfoOne } from "@/api/student/info";
 
 export default {
   name: "Info",
@@ -178,13 +262,37 @@ export default {
           { required: true, message: "学生姓名不能为空", trigger: "blur" }
         ],
         stuSex: [
-          { required: true, message: "1男性0女性不能为空", trigger: "change" }
+          { required: true, message: "性别不能为空", trigger: "change" }
         ],
         stuAge: [
           { required: true, message: "年龄不能为空", trigger: "blur" }
         ],
         stuCode: [
           { required: true, message: "身份证不能为空", trigger: "blur" }
+        ],
+        stuScore: [
+          { required: true, message: "高考成绩不能为空", trigger: "blur" }
+        ],
+        stuDept: [
+          { required: true, message: "学院编号不能为空", trigger: "blur" }
+        ],
+        stuPoliticalStatus: [
+          { required: true, message: "政治面貌不能为空", trigger: "blur" }
+        ],
+        stuMajor: [
+          { required: true, message: "专业代码不能为空", trigger: "blur" }
+        ],
+        stuNative: [
+          { required: true, message: "籍贯不能为空", trigger: "blur" }
+        ],
+        stuFolk: [
+          { required: true, message: "民族不能为空", trigger: "blur" }
+        ],
+        stuPhone: [
+          { required: true, message: "联系电话不能为空", trigger: "blur" }
+        ],
+        stuQq: [
+          { required: true, message: "QQ号不能为空", trigger: "blur" }
         ],
       }
     };
@@ -220,10 +328,11 @@ export default {
         stuMajor: null,
         stuNative: null,
         stuFolk: null,
-        stuPoliticalStatus: "0",
+        stuPoliticalStatus: null,
         stuPhone: null,
         stuStatus: 0,
-        stuQq: null
+        stuQq: null,
+        stuEmail:null,
       };
       this.resetForm("form");
     },
@@ -244,9 +353,8 @@ export default {
       this.multiple = !selection.length
     },
     /** 新增按钮操作 */
-    handleAdd() {
+    handleAddMonica() {
       this.loading = true;
-      this.open = true;
       addInfo(this.form).then(response => {
         this.msgSuccess("新增成功");
         this.open = false;
@@ -254,6 +362,12 @@ export default {
         this.loading = false;
       });
     },
+    handleAdd(){
+      this.reset();
+      this.open = true;
+    },
+
+
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
@@ -261,7 +375,7 @@ export default {
       getInfo(stuId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改studentInfo";
+        this.title = "修改学生信息";
       });
     },
     /** 提交按钮 */
@@ -275,7 +389,7 @@ export default {
               this.getList();
             });
           } else {
-            addInfo(this.form).then(response => {
+            addInfoOne(this.form).then(response => {
               this.msgSuccess("新增成功");
               this.open = false;
               this.getList();

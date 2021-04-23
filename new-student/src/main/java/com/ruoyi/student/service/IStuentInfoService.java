@@ -36,6 +36,15 @@ public interface IStuentInfoService
      */
     public int insertStuentInfo(StuentInfo stuentInfo);
 
+
+    /**
+     * 新增studentInfo
+     *
+     * @param stuentInfo studentInfo
+     * @return 结果
+     */
+    public int insertStuentInfoOne(StuentInfo stuentInfo);
+
     /**
      * 修改studentInfo
      * 

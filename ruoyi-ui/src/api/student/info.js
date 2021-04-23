@@ -26,6 +26,16 @@ export function addInfo(data) {
   })
 }
 
+// 新增studentInfo
+export function addInfoOne(data) {
+  return request({
+    url: '/student/info/addOne',
+    method: 'post',
+    data: data
+  })
+}
+
+
 // 修改studentInfo
 export function updateInfo(data) {
   return request({

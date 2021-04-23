@@ -75,6 +75,19 @@ public class StuentInfoController extends BaseController
         return toAjax(stuentInfoService.insertStuentInfo(stuentInfo));
     }
 
+
+
+    /**
+     * 新增studentInfo
+     */
+    @Log(title = "studentInfo", businessType = BusinessType.INSERT)
+    @PostMapping(value = "/addOne")
+    public AjaxResult addOne(@RequestBody StuentInfo stuentInfo)
+    {
+        return toAjax(stuentInfoService.insertStuentInfoOne(stuentInfo));
+    }
+
+
     /**
      * 修改studentInfo
      */

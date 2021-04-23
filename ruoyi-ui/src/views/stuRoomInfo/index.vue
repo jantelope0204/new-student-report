@@ -135,16 +135,16 @@
           </el-select>
 
         </el-form-item>
-        <el-form-item label="学生" prop="stuId">
+        <el-form-item label="学生学号" prop="stuId">
 <!--          <el-input v-model="form.stuId" placeholder="请输入学生学号" />-->
-          <el-select v-model="form.stuId" placeholder="请输入学生学号" @change="setStuName">
+          <el-select v-model="form.stuId" placeholder="请输入学生学号"  filterable @change="setStuName">
             <el-option v-for="(item,index) in stuList"
                        :value="item.stuId"
                        :key="index"
-                       :label="item.stuName" />
+                       :label="item.stuId" />
           </el-select>
         </el-form-item>
-        <el-form-item label="学生名字" prop="stuName" v-show="false">
+        <el-form-item label="学生名字" prop="stuName">
           <el-input v-model="form.stuName" placeholder="请输入学生名字" />
         </el-form-item>
       </el-form>
@@ -314,8 +314,11 @@ export default {
       });
     },
     setRoomName(data){
+      console.log(data,319)
+      console.log(this.roomList,319)
       this.roomList.forEach(item=>{
-        if (item.roomId == data){
+        if (item.roomName == data){
+          console.log(data,319)
           this.form.roomId = item.roomId
         }
       })
